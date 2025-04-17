@@ -1,0 +1,38 @@
+seed: 42
+agent: dqn
+output_dir: ./rl_outputs/tkg_dqn_icews18
+
+# 代理参数
+agent_kwargs:
+  train_steps: 10000
+  save_every: 600
+  eval_every: 1200
+  batch_size: 64
+  max_grad_norm: 1.0
+  lr: 0.0003
+  gamma: 0.99
+  network_params:
+    dropout: 0.1
+    hidden_dim: 256
+    num_layers: 2
+  target_update_every: 200
+  replay_memory_size: 50000
+  epsilon_start: 1.0
+  epsilon_end: 0.05
+  epsilon_decay: 20000
+
+# 环境参数
+env: tkg
+env_kwargs:
+  max_steps: 5
+  reward_scale: 10.0
+  state_repr:
+  - query_features
+  - context_features
+  - interaction_features
+  - diversity_features
+  - curr_step
+  feature_config:
+    semantic_dim: 32
+    interaction_method: "attention"
+    diversity_method: "variance"
